@@ -14,28 +14,14 @@ datasource db {
 }
 
 model Job {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  company     String
-  location    String
-  experience String
-  salaryRange String
-  createdAt   DateTime @default(now())
-}
-
-model Article {
-  id Int @id @default(autoincrement())
-
-  title String @unique
-
-  description String?
-
-  body String
-
-  published Boolean @default(false)
-
-  createdAt DateTime @default(now())
-
-  updatedAt DateTime @updatedAt
+  id                  String   @id @default(uuid())
+  title               String
+  description         String
+  company             String
+  location            String
+  jobtype             String
+  experience          String
+  salaryRange         String
+  applicationdeadline String
+  createdAt           DateTime @default(now())
 }

@@ -19,6 +19,14 @@ export class CreateJobDto {
 
   @IsString()
   @IsNotEmpty()
+  jobtype: string;
+
+  @IsString()
+  @IsNotEmpty()
+  applicationdeadline: string;
+
+  @IsString()
+  @IsNotEmpty()
   salaryRange: string;
 
   @IsString()

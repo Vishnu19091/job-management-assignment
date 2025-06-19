@@ -6,7 +6,9 @@ export class Job implements Prisma.JobCreateInput{
     description: string;
     company: string;
     location: string;
+    jobtype: string;
     exprerience: string;
     salaryRange: string;
+    applicationdeadline: string;
     createdAt?: string | Date | undefined;
 }
