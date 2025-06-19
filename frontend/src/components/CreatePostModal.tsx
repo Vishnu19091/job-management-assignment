@@ -2,8 +2,8 @@
 import { Container, Modal } from "@mantine/core";
 import { ChangeEvent, useState } from "react";
 import {
-  MultipleSelectionJobField,
-  MultipleSelectionLocationField,
+  JobField,
+  LocationField,
   SelectDeadlineDate,
 } from "./FormComponents/InputField";
 
@@ -18,11 +18,12 @@ export default function CreateJob({
 }) {
   const [form, setForm] = useState({
     title: "",
-    description: "",
-    experience: "",
-    salaryRange: "",
     company: "",
     location: "",
+    description: "",
+    experience: "",
+    salaryMin: "",
+    salaryMax: "",
     jobtype: "",
     applicationdeadline: "",
   });
@@ -34,10 +35,14 @@ export default function CreateJob({
   };
 
   const handleSubmit = async () => {
+    const payload = {
+      ...form,
+      salaryRange: `₹${form.salaryMin}LPA - ₹${form.salaryMax} LPA`,
+    };
     const res = await fetch(`${API_URL}/jobs`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify(payload),
     });
 
     const result = await res.json();
@@ -111,13 +116,17 @@ export default function CreateJob({
 
           {/* Location & Job Type */}
           <div className="grid grid-cols-2 gap-5">
-            <MultipleSelectionLocationField
+            <LocationField
               label="Location"
               placeholder="Chennai Preferred Location"
+              value={form.location}
+              onChange={(val) => setForm({ ...form, location: val || "" })}
             />
-            <MultipleSelectionJobField
+            <JobField
               label="Job Type"
               placeholder="Full-time"
+              value={form.jobtype}
+              onChange={(val) => setForm({ ...form, jobtype: val || "" })}
             />
           </div>
 
@@ -126,11 +135,14 @@ export default function CreateJob({
             <div>
               <label>Salary Range</label>
               <div className="grid grid-cols-2 gap-2">
+                {/* Salary Min */}
                 <div className="relative">
                   <input
+                    name="salaryMin"
+                    value={form.salaryMin}
+                    onChange={handleChange}
                     className="pl-10 pr-4 py-2 w-36 border border-black/40 outline-none focus:border-black rounded-lg"
                     type="text"
-                    value={form.salaryRange}
                     maxLength={8}
                     placeholder="₹0"
                   />
@@ -139,11 +151,14 @@ export default function CreateJob({
                   </div>
                 </div>
 
+                {/* Salary Max */}
                 <div className="relative">
                   <input
+                    name="salaryMax"
+                    value={form.salaryMax}
+                    onChange={handleChange}
                     className="pl-10 pr-4 py-2 w-36 border border-black/40 outline-none focus:border-black rounded-lg"
                     type="text"
-                    value={form.salaryRange}
                     maxLength={8}
                     placeholder="₹12000"
                   />
@@ -155,8 +170,31 @@ export default function CreateJob({
             </div>
 
             <div>
-              <SelectDeadlineDate />
+              <SelectDeadlineDate
+                value={form.applicationdeadline}
+                onChange={(date) =>
+                  setForm({ ...form, applicationdeadline: date })
+                }
+              />
             </div>
+          </div>
+
+          {/* Experience */}
+          <div
+            className={`flex flex-col w-1/2 transition-all duration-300 ease-in-out ${
+              form.experience ? "text-black" : "text-black/30"
+            } focus-within:text-black`}
+          >
+            <label>Experience</label>
+            <input
+              name="experience"
+              value={form.experience}
+              onChange={handleChange}
+              required
+              className={`rounded border p-2 outline-none transition-all ${
+                form.experience ? "border-black" : "border-black/30"
+              } focus:border-black`}
+            />
           </div>
 
           {/* Description */}
@@ -198,3 +236,5 @@ export default function CreateJob({
     </div>
   );
 }
+
+// Do whatever you like but will low pay 👹.

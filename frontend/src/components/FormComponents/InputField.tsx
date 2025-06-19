@@ -1,22 +1,25 @@
 "use client";
-import { MultiSelect } from "@mantine/core";
+import { Select } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import "@mantine/dates/styles.css";
 
 interface FieldProp {
   label: string;
   placeholder: string;
+  value: string;
+  onChange: (value: string | null) => void;
 }
 
-export function MultipleSelectionJobField({ label, placeholder }: FieldProp) {
+export function JobField({ label, placeholder, value, onChange }: FieldProp) {
   return (
     <>
-      <MultiSelect
+      <Select
         label={label}
         placeholder={placeholder}
         style={{ outlineColor: "black" }}
+        value={value}
+        onChange={onChange}
         data={["Full-time", "Part-time", "Contract", "Internship"]}
-        hidePickedOptions
       />
     </>
   );
@@ -35,17 +38,20 @@ const locations: string[] = [
   "NaviMumbai",
 ];
 
-export function MultipleSelectionLocationField({
+export function LocationField({
   label,
   placeholder,
+  value,
+  onChange,
 }: FieldProp) {
   return (
     <>
-      <MultiSelect
+      <Select
         label={label}
         placeholder={placeholder}
         data={locations}
-        hidePickedOptions
+        onChange={onChange}
+        value={value}
       />
     </>
   );
@@ -53,13 +59,26 @@ export function MultipleSelectionLocationField({
 
 import dayjs from "dayjs";
 // Can select date between current date to next 30days
-export function SelectDeadlineDate() {
+export function SelectDeadlineDate({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) {
   return (
     <DateInput
-      minDate={dayjs().format("YYYY-MM-DD")}
-      maxDate={dayjs().add(1, "month").format("YYYY-MM-DD")}
-      label="Date input"
-      placeholder="Date input"
+      value={value}
+      onChange={(date) => {
+        if (date) {
+          onChange(dayjs(date).format("YYYY-MM-DD"));
+        }
+      }}
+      minDate={new Date()}
+      maxDate={dayjs().add(1, "month").toDate()}
+      label="Set Deadline"
+      placeholder="Set Deadline"
+      className="w-full"
     />
   );
 }

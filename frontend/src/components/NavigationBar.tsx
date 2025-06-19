@@ -7,7 +7,7 @@ export default function NavigationBar() {
   const [cjmodalopened, setcjmodalopened] = useState(false);
 
   return (
-    <div className="flex flex-row items-center gap-4 px-8 py-4 shadow-[0px_0px_100px_1px_rgba(0,0,0,0.2)] rounded-[99rem] w-fit mx-auto">
+    <div className="flex flex-row items-center gap-4 my-5 px-8 py-4 shadow-[0px_0px_100px_1px_rgba(0,0,0,0.2)] rounded-[99rem] w-fit mx-auto">
       <figure>
         <Link href="/">
           <img src="/assets/cmw.svg" alt="" />

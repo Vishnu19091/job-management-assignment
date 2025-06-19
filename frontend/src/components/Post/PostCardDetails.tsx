@@ -1,5 +1,8 @@
-// Fetch job post data from db and store in variables
+"use client";
+import dayjs from "dayjs";
+import { useState } from "react";
 
+// Fetch job post data from db and store in variables
 {
   /*
   Data to be collected
@@ -10,18 +13,40 @@
   Job Type (Mode of work)
   Job Description
   Salary Range
+  Location
+  application deadline
   Time Created (Show hours if it is created lesser 24hrs else show days)  
   */
 }
 
-export default function PostCardDetails() {
-  const companyname: string = "Amazon";
-  const jobtitle: string = "Full stack Developer";
-  const jobType: string = "On-site"; //On-site | Remote | Hybrid
-  const yearofexp: number = 10;
-  const description: string = "Description goes here";
-  const salaryRange: string = "12-20 yrs";
-  const timeCreated: any = "12:00:00";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+export default async function PostCardDetails() {
+  const res = await fetch(`${API_URL}/jobs`);
+  const data = await res.json();
+  const job = data;
+
+  const companyname: string = job.company;
+  const jobtitle: string = job.title;
+  const jobType: string = job.jobtype;
+  const yearofexp: string = job.experience;
+  const description: string = job.description;
+  const salaryRange: string = job.salaryRange;
+  const deadline: string = job.applicationdeadline;
+
+  let displaycreateTime: string = "";
+
+  const minutesAgo = dayjs().diff(dayjs(job.createdAt), "minute");
+  const hoursAgo = dayjs().diff(dayjs(job.createdAt), "hour");
+  const daysAgo = dayjs().diff(dayjs(job.createdAt), "day");
+
+  if (minutesAgo < 60) {
+    displaycreateTime = "<1hr ago";
+  } else if (hoursAgo < 24) {
+    displaycreateTime = `${hoursAgo}hrs ago`;
+  } else {
+    displaycreateTime = `${daysAgo} day${daysAgo > 1 ? "s" : ""} ago`;
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -30,11 +55,17 @@ export default function PostCardDetails() {
           <img src="/file.svg" alt={companyname} className="h-20 w-20" />
         </figure>
 
-        {/* Time Created */}
-        <p className="bg-blue-400/50 w-fit h-fit rounded-2xl px-2 py-1.5 self-start justify-self-end">
-          {timeCreated} ago
-        </p>
+        {/* Time Created && Application deadline */}
+        <div className="flex flex-col gap-2 self-start justify-self-end">
+          <p className="bg-blue-400/50 w-fit h-fit rounded-2xl px-2 py-1.5 self-end">
+            {displaycreateTime}
+          </p>
+          <p className="bg-red-400/50 w-fit h-fit rounded-xl px-2 py-1.5 self-end">
+            {deadline}
+          </p>
+        </div>
       </div>
+
       <h1 className="text-2xl font-bold">{jobtitle}</h1>
       <div className="flex flex-row gap-4">
         {/* Years of Experience */}
