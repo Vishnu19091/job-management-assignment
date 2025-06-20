@@ -9,7 +9,7 @@ export default function JobFilterBar() {
   const [salaryRange, setSalaryRange] = useState([50000, 80000]);
 
   return (
-    <div className="bg-white/70 backdrop-blur-md rounded-xl shadow-md px-6 py-4 flex items-center justify-between gap-4 text-gray-700 w-full max-w-7xl mx-auto">
+    <div className="bg-white/70 rounded-xl shadow-md px-6 py-4 my-5 flex items-center justify-between gap-4 text-gray-700 w-full max-w-full mx-auto">
       {/* Search */}
       <div className="flex items-center gap-2 border-r pr-4">
         <FaSearch className="text-lg" />

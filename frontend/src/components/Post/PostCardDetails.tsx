@@ -24,7 +24,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export default async function PostCardDetails() {
   const res = await fetch(`${API_URL}/jobs`);
   const data = await res.json();
-  const job = data;
+  const job = data[0];
 
   const companyname: string = job.company;
   const jobtitle: string = job.title;

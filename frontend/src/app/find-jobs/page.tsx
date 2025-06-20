@@ -10,6 +10,8 @@ export default function FindJobsPage() {
 
       <div className="w-[80%] mx-auto grid grid-cols-4 gap-5">
         <Post />
+        <Post />
+        <Post />
       </div>
     </>
   );

@@ -1,9 +1,7 @@
-import JobPostPage from "@/components/CreatePostModal";
-
 export default function Home() {
   return (
     <div>
-      <JobPostPage />
+      <h1>Hello</h1>
     </div>
   );
 }
