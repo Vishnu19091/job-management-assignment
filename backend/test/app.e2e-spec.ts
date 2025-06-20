@@ -20,6 +20,6 @@ describe('AppController (e2e)', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
-      .expect('Hello World!');
+      .expect("Welcome to Job Management API! Add '/api' in the url to navigate to the swagger UI");
   });
 });

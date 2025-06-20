@@ -1,3 +1,4 @@
+"use client";
 // components/JobFilterBar.tsx
 import { useState } from "react";
 import { FaSearch, FaMapMarkerAlt, FaUserTie } from "react-icons/fa";
@@ -11,7 +12,7 @@ export default function JobFilterBar() {
   return (
     <div className="bg-white/70 rounded-xl shadow-md px-6 py-4 my-5 flex items-center justify-between gap-4 text-gray-700 w-full max-w-full mx-auto">
       {/* Search */}
-      <div className="flex items-center gap-2 border-r pr-4">
+      <div className="flex items-center self-center gap-2 border-r pr-4">
         <FaSearch className="text-lg" />
         <input
           type="text"
