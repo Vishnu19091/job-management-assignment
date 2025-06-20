@@ -1,5 +1,6 @@
 "use client";
 import dayjs from "dayjs";
+import { Button, Text } from "@mantine/core";
 
 // Fetch job post data from db and store in variables
 {
@@ -18,48 +19,17 @@ import dayjs from "dayjs";
   */
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-type JobType = {
-  company: string;
-  title: string;
-  jobtype: string;
-  experience: string;
-  description: string;
-  salaryRange: string;
-  applicationdeadline: string;
-  createdAt: string;
-};
-
-export default async function PostCardDetails({ jobs }: { jobs: JobType }) {
-  let job;
-
-  try {
-    const res = await fetch(`${API_URL}/jobs`, { cache: "no-store" });
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch jobs");
-    }
-
-    const data = await res.json();
-    job = data[0];
-  } catch (error) {
-    console.error("❌ Error fetching jobs:", error);
-    return (
-      <div className="text-red-500 text-center p-4">
-        Failed to load job details. Please try again later.
-      </div>
-    );
-  }
-
-  // Handle null job case
-  if (!job) {
-    return (
-      <div className="text-gray-500 text-center p-4">
-        No job posts available.
-      </div>
-    );
-  }
+export default function PostCardDetails() {
+  let job = {
+    company: "Amazon",
+    title: "Developer",
+    jobtype: "Remote",
+    experience: "1-4 yrs",
+    description: "Nothing",
+    createdAt: "2025-06-19T09:19:20.876Z",
+    salaryRange: "4LPA - 6LPA",
+    applicationdeadline: "30-07-2025",
+  };
 
   // Data destructuring
   const companyname: string = job.company;
@@ -83,6 +53,15 @@ export default async function PostCardDetails({ jobs }: { jobs: JobType }) {
     displaycreateTime = `${hoursAgo}hrs ago`;
   } else {
     displaycreateTime = `${daysAgo} day${daysAgo > 1 ? "s" : ""} ago`;
+  }
+
+  // Handle null job case
+  if (!job.createdAt) {
+    return (
+      <div className="text-gray-500 text-center p-4">
+        No job posts available.
+      </div>
+    );
   }
 
   return (
@@ -128,6 +107,9 @@ export default async function PostCardDetails({ jobs }: { jobs: JobType }) {
       <div>
         <p>{description}</p>
       </div>
+      <Button size="md" style={{ borderRadius: "0.8rem" }} fullWidth>
+        <Text size="xl">Apply Now</Text>
+      </Button>
     </div>
   );
 }

@@ -1,10 +1,23 @@
 "use client";
 // components/JobFilterBar.tsx
 import { useState } from "react";
+import { Select } from "@mantine/core";
 import { FaSearch, FaMapMarkerAlt, FaUserTie } from "react-icons/fa";
 
+const locations: string[] = [
+  "Chennai",
+  "Vellore",
+  "Coimbatore",
+  "Bangalore",
+  "Kochi",
+  "Goa",
+  "Pune",
+  "Delhi",
+  "Mumbai",
+  "NaviMumbai",
+];
+
 export default function JobFilterBar() {
-  const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
   const [jobType, setJobType] = useState("");
   const [salaryRange, setSalaryRange] = useState([50000, 80000]);
@@ -13,13 +26,12 @@ export default function JobFilterBar() {
     <div className="bg-white/70 rounded-xl shadow-md px-6 py-4 my-5 flex items-center justify-between gap-4 text-gray-700 w-full max-w-full mx-auto">
       {/* Search */}
       <div className="flex items-center self-center gap-2 border-r pr-4">
-        <FaSearch className="text-lg" />
-        <input
-          type="text"
-          placeholder="Search By Job Title, Role"
-          className="bg-transparent outline-none placeholder:text-gray-500 w-48"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+        <img src="/assets/magnifier.svg" alt="" />
+        <Select
+          placeholder="Search By Jot, Title, Role"
+          data={locations}
+          searchable
+          nothingFoundMessage="Nothing found..."
         />
       </div>
 
