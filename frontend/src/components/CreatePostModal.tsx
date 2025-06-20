@@ -7,6 +7,9 @@ import {
   SelectDeadlineDate,
 } from "./FormComponents/InputField";
 
+import { Notification } from "@mantine/core";
+import { useRouter } from "next/router";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function CreateJob({
@@ -46,7 +49,21 @@ export default function CreateJob({
     });
 
     const result = await res.json();
-    console.log(result);
+
+    if (result) {
+      return (
+        <Notification title={result}>
+          Now you can close the form or create another Job.
+        </Notification>
+      );
+    }
+    // else {
+    //   return (
+    //     <Notification title="We notify you that">
+    //       Something went or you might try to publish with empty data.
+    //     </Notification>
+    //   );
+    // }
   };
 
   //check input value is numbers

@@ -4,7 +4,7 @@ import "./globals.css";
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import NavigationBar from "@/components/NavigationBar";
-
+import localFont from "next/font/local";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,6 +14,10 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const SatoshiFont = localFont({
+  src: "./Satoshi-Variable.woff2",
 });
 
 export const metadata: Metadata = {
@@ -28,9 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${SatoshiFont.className} antialiased`}>
         <MantineProvider>
           <NavigationBar />
           {children}

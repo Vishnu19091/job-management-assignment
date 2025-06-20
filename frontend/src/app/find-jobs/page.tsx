@@ -10,6 +10,7 @@ export default async function FindJobsPage() {
     const res = await fetch(`${API_URL}/jobs`, { cache: "no-store" });
     if (!res.ok) throw new Error("Failed to fetch jobs");
     jobs = await res.json();
+    console.log(jobs)
   } catch (error) {
     console.error("Error loading jobs:", error);
     return <p className="text-red-500 p-4">Failed to load job posts.</p>;
